@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10231b">
+  <title>Plastic Bottle Detector</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">On this device only</p>
+      <h1>Plastic Bottle Detector</h1>
+      <p class="lede">Count bottles from the camera, or from a photo or video. The file stays in this tab. Closing it removes the copy here. A download is saved on your phone or laptop.</p>
+    </header>
+
+    <section class="modes" aria-label="Detection mode">
+      <button id="live-mode" class="mode-button" type="button">Live detection</button>
+      <button id="media-mode" class="mode-button" type="button">Photo or video</button>
+    </section>
+
+    <label class="confidence">
+      <span>Confidence <strong id="confidence-value">0.50</strong></span>
+      <input id="confidence" type="range" min="0.15" max="0.90" step="0.05" value="0.50">
+    </label>
+    <p class="hint">Higher confidence keeps only the bottles the model is sure about.</p>
+
+    <p id="status" class="status" role="status">Choose live detection or a photo or video.</p>
+    <div id="progress" class="progress" hidden>
+      <div id="progress-bar"></div>
+    </div>
+
+    <section id="live-panel" class="panel" hidden>
+      <div class="stage">
+        <video id="camera" autoplay playsinline muted></video>
+        <canvas id="live-canvas"></canvas>
+      </div>
+      <div class="stats">
+        <div>
+          <span>Detected so far</span>
+          <strong id="live-total">0</strong>
+        </div>
+        <div>
+          <span>In frame</span>
+          <strong id="live-now">0</strong>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="start-camera" class="primary" type="button">Start camera</button>
+        <button id="flip-camera" type="button">Flip camera</button>
+        <button id="reset-count" type="button">Reset counter</button>
+      </div>
+      <p class="hint">The badge on the picture is the running total. A bottle that leaves and comes back can be counted again.</p>
+    </section>
+
+    <section id="media-panel" class="panel" hidden>
+      <label class="file-button" for="file-input">Choose a different file</label>
+      <input id="file-input" type="file" accept="image/*,video/*">
+      <div id="result-stats" class="stats" hidden>
+        <div>
+          <span>Bottles detected</span>
+          <strong id="media-count">0</strong>
+        </div>
+      </div>
+      <div class="stage" id="result-stage" hidden>
+        <canvas id="result-canvas"></canvas>
+        <video id="result-video" controls playsinline></video>
+      </div>
+      <div class="actions">
+        <a id="download" class="primary download" hidden download>Download result</a>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

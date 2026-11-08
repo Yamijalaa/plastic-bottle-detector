@@ -1,0 +1,12 @@
+.env
+.env.*
+venv/
+**/__pycache__/
+*.zip
+uploads/
+outputs/
+best.pt
+*.pt
+web/models/best_v1.onnx
+plastic_bottles/
+plastic-detector-app/venv/
